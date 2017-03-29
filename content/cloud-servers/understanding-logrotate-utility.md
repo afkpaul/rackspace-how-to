@@ -234,6 +234,19 @@ they could potentially try to log more items to the old file for some time
 after the restart. Delaying the compression ensures that you won't lose those
 extra log entries when the logs are rotated.
 
+#### Prerotate
+
+Logrotate runs the `prerotate` script BEFORE each time it rotates a log specified
+in a configuration block. You usually want to use this script to start
+a backup application before the log rotation so that the app can create a new log.
+
+    prerotate
+        /home/afk/my-backup-script.sh
+    endscript
+
+The `prerotate` command tells logrotate that the script to run, starts on the
+next line, and the `endscript` command says that the script is done.
+
 #### Postrotate
 
 Logrotate runs the `postrotate` script each time it rotates a log specified
